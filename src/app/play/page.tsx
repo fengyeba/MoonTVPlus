@@ -50,9 +50,11 @@ import { getTMDBImageUrl } from '@/lib/tmdb.search';
 import { DanmakuFilterConfig, EpisodeFilterConfig, SearchResult } from '@/lib/types';
 import { base58Decode, getVideoResolutionFromM3u8, processImageUrl } from '@/lib/utils';
 import { useEnableComments } from '@/hooks/useEnableComments';
+import { useEnableAIComments } from '@/hooks/useEnableAIComments';
 import { usePlaySync } from '@/hooks/usePlaySync';
 
 import AIChatPanel from '@/components/AIChatPanel';
+import AIComments from '@/components/AIComments';
 import CorrectDialog from '@/components/CorrectDialog';
 import DanmakuFilterSettings from '@/components/DanmakuFilterSettings';
 import DetailPanel from '@/components/DetailPanel';
@@ -87,6 +89,7 @@ function PlayPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const enableComments = useEnableComments();
+  const enableAIComments = useEnableAIComments();
   const { addDownloadTask } = useDownload();
   const { siteName } = useSite();
 
@@ -8715,6 +8718,28 @@ function PlayPageClient() {
                   {/* 评论内容 */}
                   <div className='p-3 md:p-6'>
                     <DoubanComments doubanId={videoDoubanId} />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* AI评论区域 */}
+            {videoTitle && enableAIComments && (
+              <div className='mt-6 -mx-3 md:mx-0 md:px-4'>
+                <div className='bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-blue-200/50 dark:border-blue-700/50 overflow-hidden'>
+                  {/* 标题 */}
+                  <div className='px-3 md:px-6 py-4 border-b border-blue-200 dark:border-blue-700'>
+                    <h3 className='text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2'>
+                      <svg className='w-5 h-5 text-blue-600 dark:text-blue-400' fill='currentColor' viewBox='0 0 24 24'>
+                        <path d='M13 10V3L4 14h7v7l9-11h-7z' />
+                      </svg>
+                      AI生成评论
+                    </h3>
+                  </div>
+
+                  {/* 评论内容 */}
+                  <div className='p-3 md:p-6'>
+                    <AIComments movieName={videoTitle} />
                   </div>
                 </div>
               </div>

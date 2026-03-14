@@ -10327,6 +10327,7 @@ const AIConfigComponent = ({
   const [enableHomepageEntry, setEnableHomepageEntry] = useState(true);
   const [enableVideoCardEntry, setEnableVideoCardEntry] = useState(true);
   const [enablePlayPageEntry, setEnablePlayPageEntry] = useState(true);
+  const [enableAIComments, setEnableAIComments] = useState(false);
 
   // 权限控制
   const [allowRegularUsers, setAllowRegularUsers] = useState(true);
@@ -10357,6 +10358,7 @@ const AIConfigComponent = ({
       setEnableHomepageEntry(config.AIConfig.EnableHomepageEntry !== false);
       setEnableVideoCardEntry(config.AIConfig.EnableVideoCardEntry !== false);
       setEnablePlayPageEntry(config.AIConfig.EnablePlayPageEntry !== false);
+      setEnableAIComments(config.AIConfig.EnableAIComments || false);
       setAllowRegularUsers(config.AIConfig.AllowRegularUsers !== false);
       setTemperature(config.AIConfig.Temperature ?? 0.7);
       setMaxTokens(config.AIConfig.MaxTokens ?? 1000);
@@ -10390,6 +10392,7 @@ const AIConfigComponent = ({
             EnableHomepageEntry: enableHomepageEntry,
             EnableVideoCardEntry: enableVideoCardEntry,
             EnablePlayPageEntry: enablePlayPageEntry,
+            EnableAIComments: enableAIComments,
             AllowRegularUsers: allowRegularUsers,
             Temperature: temperature,
             MaxTokens: maxTokens,
@@ -10659,6 +10662,7 @@ const AIConfigComponent = ({
           { key: 'homepage', label: '首页入口', desc: '在首页显示AI问片入口', state: enableHomepageEntry, setState: setEnableHomepageEntry },
           { key: 'videocard', label: '视频卡片入口', desc: '在视频卡片菜单中显示AI问片选项', state: enableVideoCardEntry, setState: setEnableVideoCardEntry },
           { key: 'playpage', label: '播放页入口', desc: '在视频播放页显示AI问片功能', state: enablePlayPageEntry, setState: setEnablePlayPageEntry },
+          { key: 'aicomments', label: 'AI评论功能', desc: '在播放页生成AI评论（独立于豆瓣评论）', state: enableAIComments, setState: setEnableAIComments },
         ].map((item) => (
           <div key={item.key} className='flex items-center justify-between py-2'>
             <div>
